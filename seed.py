@@ -56,13 +56,10 @@ def load_movies():
         imdb_url = item_data[4]
 
         title, year = title_year.split("(1")
+        title = title.rstrip()
 
         format = "%d-%b-%Y"
         released_at = datetime.strptime(date_of_release, format)
-
-        print(released_at)
-        print(movie_id)
-        print(title)
 
         movie = Movie(movie_id=movie_id,
                       title=title,
@@ -85,12 +82,15 @@ def load_ratings():
 
     for row in open("seed_data/u.data"):
         row = row.strip()
-        user_id, movie_id, score, timestamp = row.split("|")
+        rating_data = row.split()
 
-        rating = Rating(user_id=user_id,
-                        movie_id=movie_id,
-                        score=score,
-                        timestamp=timestamp)
+        user_id = rating_data[0]
+        movie_id = rating_data[1]
+        score = rating_data[2]
+
+        rating = Rating(movie_id=movie_id,
+                        user_id=user_id,
+                        score=score)
 
         db.session.add(rating)
 
@@ -114,6 +114,8 @@ if __name__ == "__main__":
     connect_to_db(app)
 
     # In case tables haven't been created, create them
+    # Movie.query.delete()
+    db.drop_all()
     db.create_all()
 
     # Import different types of data

@@ -18,35 +18,41 @@ class User(db.Model):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    email = db.Column(db.String(), nullable=True)
-    password = db.Column(db.String(), nullable=True)
+    email = db.Column(db.String(500), nullable=True)
+    password = db.Column(db.String(500), nullable=True)
     age = db.Column(db.Integer, nullable=True)
-    zipcode = db.Column(db.String(), nullable=True)
+    zipcode = db.Column(db.String(500), nullable=True)
 
     def __repr__(self):
-        return f"<User user_id ={self.user_id} email = {self.email}>"
+        return f"<User user_id ={self.user_id} email = {self.email} age={self.age}>"
 
 
 # Put your Movie and Rating model classes here.
 
 class Movie(db.Model):
-
+    """Movies in ratings website"""
     __tablename__ = "movies"
 
     movie_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    title = db.Column(db.String(), nullable=False)
+    title = db.Column(db.String(500), nullable=False)
     released_at = db.Column(db.DateTime(), nullable=False)
-    imdb_url = db.Column(db.String(), nullable=False)
+    imdb_url = db.Column(db.String(500), nullable=False)
+
+    def __repr__(self):
+        return f"<Movie movie_id ={self.movie_id} title = {self.title} released_at = {self.released_at} imdb_url = {self.imdb_url}>"
 
 
 class Rating(db.Model):
-
+    """User ratings in ratings website"""
     __tablename__ = "ratings"
 
     rating_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     movie_id = db.Column(db.Integer)
     user_id = db.Column(db.Integer)
     score = db.Column(db.Integer)
+
+    def __repr__(self):
+        return f"<Rating rating_id ={self.rating_id} movie_id = {self.movie_id} user_id = {self.user_id} score = {self.score}>"
 
 ##############################################################################
 # Helper functions
