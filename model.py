@@ -47,12 +47,17 @@ class Rating(db.Model):
     __tablename__ = "ratings"
 
     rating_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    movie_id = db.Column(db.Integer)
-    user_id = db.Column(db.Integer)
+    movie_id = db.Column(db.Integer,
+                         db.ForeignKey('movies.movie_id'))
+    user_id = db.Column(db.Integer,
+                
     score = db.Column(db.Integer)
 
     def __repr__(self):
-        return f"<Rating rating_id ={self.rating_id} movie_id = {self.movie_id} user_id = {self.user_id} score = {self.score}>"
+        return f""""<Rating rating_id ={self.rating_id}
+                  movie_id = {self.movie_id} 
+                  user_id = {self.user_id} 
+                  score = {self.score}>"""
 
 ##############################################################################
 # Helper functions
