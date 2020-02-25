@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+
+<body>
+
+  {% block content %} 
+
+
+   <form action="/login" method= "POST">
+    <p>
+      <label for= "your_email">Enter your email:</label>
+      <input type = "text" name = "your_email">
+    </p>
+    <p>
+    Create password:
+      <label for="your_password">Enter your password:</label>
+      <input type = "text" name = "your_password">
+    </p>
+    <button type ="submit">Submit</button>
+  </form>
+
+  
+
+
+
+
+
+  {% endblock %}
+
+</body>
+</html>
