@@ -34,12 +34,33 @@ def user_list():
 @app.route('/register', methods=["GET"])
 def register_form():
 
-    new_user = request
-
     return render_template("register_form.html")
 
+@app.route('/register', methods=["POST"])
+def register_process():
 
+    new_email = request.form.get("new_email")
+    password = request.form.get("new_password")
+    new_user = User(email=new_email, password=password)
 
+    db.session.add(new_user)
+    db.session.commit()
+
+    return render_template("homepage.html")
+
+@app.route('/login', methods=["GET"])
+def login():
+    return render_template("login.html")
+
+@app.route('/login', methods=["POST"])
+def login_check():
+    your_email = request.form.get("your_email")
+    your_password = request.form.get("your_password")
+    if User.query.filter(User.email == your_email, User.password == your_password).all():
+        flash("You successfully logged in!")
+        return render_template("homepage.html")
+    else:
+        return render_template("unsuccessful_login.html")
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
